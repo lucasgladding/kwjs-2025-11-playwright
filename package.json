@@ -2,7 +2,11 @@
   "name": "kwjs-2025-11-playwright",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:report": "playwright show-report"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
