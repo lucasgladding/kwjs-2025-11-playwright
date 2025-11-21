@@ -5,12 +5,8 @@ import { EventPage } from './pages/meetup/EventPage';
 
 test('has event location text', async ({ page }) => {
   const groupPage = new GroupPage(page, 'kwjavascript');
-  await groupPage.goto();
-  await groupPage.openPastEvents();
-
-  const pastEventsPage = new PastEventsPage(page);
-  await pastEventsPage.openEvent(/Intro to E2E/);
-
-  const eventPage = new EventPage(page);
+  await groupPage.open();
+  const pastEventsPage = await groupPage.openPastEvents();
+  const eventPage = await pastEventsPage.openEvent(/Intro to E2E/);
   await expect(eventPage.locationText).toBeVisible();
 });

@@ -1,4 +1,5 @@
 import { Locator, Page } from "@playwright/test";
+import { PastEventsPage } from "./PastEventsPage";
 
 export class GroupPage {
     constructor(
@@ -12,12 +13,13 @@ export class GroupPage {
         return this.page.locator('#see-all-past-events-button') ;   
     }
 
-    async goto() {
+    async open() {
         const url = `https://www.meetup.com/${this.name}/`;
         await this.page.goto(url);
     }
 
-    async openPastEvents() {
+    async openPastEvents(): Promise<PastEventsPage> {
         await this.pastEventsButton.click();
+        return new PastEventsPage(this.page);
     }
 }

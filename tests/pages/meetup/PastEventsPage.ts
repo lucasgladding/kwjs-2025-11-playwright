@@ -1,4 +1,5 @@
 import { Page } from "@playwright/test";
+import { EventPage } from "./EventPage";
 
 export class PastEventsPage {
     constructor(
@@ -7,7 +8,8 @@ export class PastEventsPage {
         //
     }
 
-    async openEvent(name: string | RegExp) {
+    async openEvent(name: string | RegExp): Promise<EventPage> {
         await this.page.getByRole('link', { name }).click();
+        return new EventPage(this.page);
     }
 }
