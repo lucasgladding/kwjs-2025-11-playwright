@@ -1,8 +1,16 @@
 import { test, expect } from '@playwright/test';
+import { GroupPage } from './pages/meetup/GroupPage';
+import { PastEventsPage } from './pages/meetup/PastEventsPage';
+import { EventPage } from './pages/meetup/EventPage';
 
-test('can rsvp', async ({ page }) => {
-  await page.goto('https://www.meetup.com/kwjavascript/');
-  await page.locator('#see-all-past-events-button').click();
-  await page.getByRole('link', { name: /Intro to E2E/ }).click();
-  await expect(page.getByText(/200 Bathurst Drive/)).toBeVisible();
+test('has event location text', async ({ page }) => {
+  const groupPage = new GroupPage(page, 'kwjavascript');
+  await groupPage.goto();
+  await groupPage.openPastEvents();
+
+  const pastEventsPage = new PastEventsPage(page);
+  await pastEventsPage.openEvent(/Intro to E2E/);
+
+  const eventPage = new EventPage(page);
+  await expect(eventPage.locationText).toBeVisible();
 });
